@@ -1,0 +1,105 @@
+.users-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.users-page__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.users-page__table-wrapper {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.users-page__table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  th {
+    background-color: var(--color-background);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    color: var(--color-text-primary);
+    border-top: 1px solid #f3f4f6;
+  }
+
+  tbody tr {
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: var(--color-background);
+    }
+  }
+}
+
+.users-page__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.users-page__edit-btn,
+.users-page__delete-btn {
+  background: none;
+  border: 1.5px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.users-page__edit-btn {
+  color: var(--color-primary);
+
+  &:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-background);
+  }
+}
+
+.users-page__delete-btn {
+  color: var(--color-error);
+
+  &:hover {
+    border-color: var(--color-error);
+    background-color: #fef2f2;
+  }
+}
+
+.users-page__empty {
+  padding: 48px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .users-page__table-wrapper {
+    overflow-x: auto;
+  }
+
+  .users-page__table {
+    min-width: 600px;
+  }
+}

@@ -1,0 +1,24 @@
+// Theme CSS Custom Properties
+// Default values match Ocean theme — overridden at runtime by applyTheme()
+
+:root {
+  // Primary colors
+  --color-primary: #0284c7;
+  --color-primary-light: #38bdf8;
+  --color-primary-dark: #075985;
+
+  // Secondary & accent
+  --color-secondary: #0ea5e9;
+  --color-accent: #67e8f9;
+
+  // Backgrounds
+  --color-background: #f0f9ff;
+  --color-surface: #ffffff;
+
+  // Text
+  --color-text-primary: #0c4a6e;
+  --color-text-secondary: #64748b;
+
+  // Feedback
+  --color-error: #ef4444;
+}

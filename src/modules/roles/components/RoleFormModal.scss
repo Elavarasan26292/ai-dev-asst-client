@@ -1,0 +1,56 @@
+.role-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.role-form__error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--color-error);
+}
+
+.role-form__permissions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.role-form__permissions-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.role-form__permission-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--color-primary-light);
+  }
+
+  &--selected {
+    border-color: var(--color-primary);
+    background-color: rgba(79, 70, 229, 0.05);
+  }
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+  }
+}

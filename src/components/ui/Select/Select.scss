@@ -1,0 +1,93 @@
+.select {
+  position: relative;
+  width: fit-content;
+}
+
+.select__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+
+  &:hover {
+    border-color: var(--color-primary-light);
+  }
+
+  &--open {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+}
+
+.select__arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s;
+  color: var(--color-text-secondary);
+
+  &--open {
+    transform: rotate(180deg);
+  }
+}
+
+.select__dropdown {
+  position: absolute;
+  top: calc(100% + 2px);
+  right: 0;
+  min-width: 100%;
+  background-color: var(--color-surface);
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  overflow: hidden;
+  animation: selectFadeIn 0.15s ease-out;
+}
+
+.select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background-color: var(--color-background);
+  }
+
+  &--selected {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+}
+
+.select__check {
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary);
+}
+
+@keyframes selectFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

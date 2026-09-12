@@ -1,0 +1,108 @@
+{
+  "app": {
+    "name": "AI Dev Asst",
+    "copyright": "© 2026 AI Dev Asst. Todos los derechos reservados."
+  },
+  "common": {
+    "logout": "Cerrar sesión",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "add": "Agregar",
+    "edit": "Editar",
+    "actions": "Acciones",
+    "delete": "Eliminar",
+    "confirm": "Confirmar",
+    "deleteConfirmTitle": "Confirmar Eliminación",
+    "deleteConfirmMessage": "¿Estás seguro de que deseas eliminar esto? Esta acción no se puede deshacer."
+  },
+  "menu": {
+    "dashboard": "Panel",
+    "startDevelopment": "Iniciar Desarrollo",
+    "tasksCompleted": "Tareas Completadas",
+    "users": "Usuarios",
+    "roles": "Roles",
+    "account": "Cuenta"
+  },
+  "auth": {
+    "branding": {
+      "title": "Gestiona tu flujo\nde desarrollo\nde IA",
+      "subtitle": "Control de acceso basado en roles con autenticación segura para optimizar tu proceso de desarrollo de IA."
+    },
+    "login": {
+      "title": "Inicia sesión en tu cuenta",
+      "subtitle": "¡Bienvenido de nuevo! Por favor, ingresa tus credenciales.",
+      "emailLabel": "Correo electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submitButton": "Iniciar sesión",
+      "loading": "Iniciando sesión..."
+    }
+  },
+  "dashboard": {
+    "welcome": "¡Bienvenido, {{name}}!",
+    "message": "Has iniciado sesión correctamente. Este es tu panel de control — los menús y el contenido estarán disponibles pronto."
+  },
+  "startDevelopment": {
+    "title": "Iniciar Desarrollo",
+    "subtitle": "Ingresa un ID de ticket para analizar el requerimiento antes de iniciar el desarrollo.",
+    "ticketId": "ID del Ticket",
+    "ticketIdPlaceholder": "Ingresa el ID del ticket (ej. 12345)",
+    "analyzeButton": "Analizar Ticket",
+    "analyzing": "Analizando ticket...",
+    "summary": "Resumen",
+    "tasks": "Tareas a Implementar",
+    "screenshots": "Análisis de Capturas",
+    "questions": "Preguntas / Aclaraciones",
+    "complexity": "Complejidad Estimada",
+    "noResults": "Ingresa un ID de ticket y haz clic en Analizar para comenzar.",
+    "proceedButton": "Proceder al Desarrollo"
+  },
+  "tasksCompleted": {
+    "title": "Tareas Completadas",
+    "message": "Esta función estará disponible pronto. Podrás ver tus tareas completadas aquí."
+  },
+  "users": {
+    "title": "Usuarios",
+    "addUser": "Agregar Usuario",
+    "editUser": "Editar Usuario",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "phone": "Teléfono",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "role": "Rol",
+    "theme": "Tema",
+    "createdSuccess": "Usuario creado exitosamente.",
+    "updatedSuccess": "Usuario actualizado exitosamente.",
+    "deletedSuccess": "Usuario eliminado exitosamente.",
+    "noUsers": "No se encontraron usuarios."
+  },
+  "roles": {
+    "title": "Roles",
+    "addRole": "Agregar Rol",
+    "editRole": "Editar Rol",
+    "roleName": "Nombre del Rol",
+    "permissions": "Permisos",
+    "createdSuccess": "Rol creado exitosamente.",
+    "updatedSuccess": "Rol actualizado exitosamente.",
+    "deletedSuccess": "Rol eliminado exitosamente.",
+    "noRoles": "No se encontraron roles."
+  },
+  "account": {
+    "title": "Mi Cuenta",
+    "changePassword": "Cambiar Contraseña",
+    "oldPassword": "Contraseña Anterior",
+    "newPassword": "Nueva Contraseña",
+    "updatedSuccess": "Cuenta actualizada exitosamente.",
+    "passwordChanged": "Contraseña cambiada exitosamente.",
+    "oldPasswordPlaceholder": "Ingresa la contraseña anterior",
+    "newPasswordPlaceholder": "Ingresa la nueva contraseña"
+  },
+  "validation": {
+    "required": "{{field}} es obligatorio.",
+    "invalidEmail": "Por favor, ingresa una dirección de correo válida.",
+    "minLength": "{{field}} debe tener al menos {{length}} caracteres."
+  }
+}

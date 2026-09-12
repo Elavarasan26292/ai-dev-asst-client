@@ -1,0 +1,39 @@
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+}
+
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  position: relative;
+  background-color: var(--color-background);
+}
+
+.auth-form-panel__lang {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 20;
+}
+
+.auth-form-panel__inner {
+  width: 100%;
+  max-width: 420px;
+}
+
+// Responsive
+@media (max-width: 1023px) {
+  .auth-layout {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-form-panel {
+    padding: 24px;
+  }
+}

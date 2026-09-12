@@ -1,0 +1,29 @@
+.dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.dashboard__card {
+  background-color: var(--color-surface);
+  border-radius: 12px;
+  padding: 48px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  max-width: 500px;
+  width: 100%;
+}
+
+.dashboard__greeting {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.dashboard__message {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
