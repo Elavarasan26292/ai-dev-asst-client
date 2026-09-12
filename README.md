@@ -1,14 +1,17 @@
 # AI Dev Assistant Client
 
 React and TypeScript frontend for the AI Dev Assistant. The client provides authentication, user and role management, dashboard views, and ticket analysis workflows.
+
 ## Prerequisites
 
 - Node.js `20.19+` or `22.12+`
 - npm
 
 ## Install dependencies
+
 From this directory, run:
-```bash
+
+````bash
 npm install
 
 ## Backend configuration
@@ -41,9 +44,10 @@ npm run lint
 
 # Preview the production build locally
 npm run preview
-```
+````
 
 ## Project structure
+
 ```text
 src/
 ├── components/       Shared UI components
@@ -57,10 +61,12 @@ src/
 ```
 
 ## Troubleshooting
+
 - **Unable to connect to server:** confirm that the API is running on `http://localhost:5259`.
 - **CORS error:** confirm that the client is running on port `5173`, or update the allowed origin in the API `Program.cs` file.
 - **Node.js version error:** use Node.js `20.19+` or `22.12+`. Node.js 18 is not supported by the current Vite version.
 - **Unauthorized requests:** log in again if the JWT access token has expired or if the user's role permissions changed.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
