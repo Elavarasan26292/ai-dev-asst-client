@@ -1,0 +1,65 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  dockerRegistryServiceConnection: "devasst-acr-connection"
+  azureSubscriptionServiceConnection: "devasst-aks-connection"
+  azureResourceGroup: "VisualStudioOnline-C40A3787E31A48EEBA3DE3DDB8EF0511"
+  kubernetesCluster: "devasst-aks"
+  apiBaseUrl: "http://ai-dev-asst-api.southindia.cloudapp.azure.com/api"
+  imageRepository: "ai-dev-asst-client"
+  imageTag: "$(Build.BuildId)"
+
+steps:
+  - task: NodeTool@0
+    displayName: Install Node.js 22
+    inputs:
+      versionSpec: "22.x"
+
+  - script: npm ci
+    displayName: Install client dependencies
+
+  - script: npm run build
+    displayName: Validate client build
+
+  - task: Docker@2
+    displayName: Build and push client image
+    inputs:
+      command: buildAndPush
+      containerRegistry: $(dockerRegistryServiceConnection)
+      repository: $(imageRepository)
+      Dockerfile: "$(Build.SourcesDirectory)/Dockerfile"
+      buildContext: "$(Build.SourcesDirectory)"
+      arguments: '--build-arg VITE_API_BASE_URL="$(apiBaseUrl)"'
+      tags: |
+        $(imageTag)
+        latest
+
+  - bash: |
+      set -euo pipefail
+      export IMAGE_TAG="$(imageTag)"
+      mkdir -p "$(Build.ArtifactStagingDirectory)/k8s"
+      envsubst '${IMAGE_TAG}' \
+        < "$(Build.SourcesDirectory)/k8s/deployment.yaml" \
+        > "$(Build.ArtifactStagingDirectory)/k8s/deployment.yaml"
+      cp "$(Build.SourcesDirectory)/k8s/service.yaml" \
+        "$(Build.ArtifactStagingDirectory)/k8s/service.yaml"
+    displayName: Render Kubernetes manifests
+
+  - task: KubernetesManifest@1
+    displayName: Deploy client to AKS
+    inputs:
+      action: deploy
+      connectionType: azureResourceManager
+      azureSubscriptionConnection: $(azureSubscriptionServiceConnection)
+      azureResourceGroup: $(azureResourceGroup)
+      kubernetesCluster: $(kubernetesCluster)
+      namespace: default
+      manifests: |
+        $(Build.ArtifactStagingDirectory)/k8s/deployment.yaml
+        $(Build.ArtifactStagingDirectory)/k8s/service.yaml
+      containers: |
+        devasst.azurecr.io/$(imageRepository):$(imageTag)

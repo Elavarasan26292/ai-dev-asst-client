@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://localhost:5259/api";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5259/api";
 
 interface ApiResponse<T> {
   data?: T;
@@ -7,7 +8,7 @@ interface ApiResponse<T> {
 
 async function request<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<ApiResponse<T>> {
   try {
     const token = localStorage.getItem("accessToken");
