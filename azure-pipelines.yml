@@ -10,7 +10,7 @@ variables:
   azureResourceGroup: "VisualStudioOnline-C40A3787E31A48EEBA3DE3DDB8EF0511"
   kubernetesCluster: "devasst-aks"
   apiBaseUrl: "https://ai-dev-asst-client.southindia.cloudapp.azure.com/api"
-  letsEncryptEmail: "REPLACE_WITH_LETSENCRYPT_EMAIL"
+  letsEncryptEmail: "elavarasan.web.developer@gmail.com"
   imageRepository: "ai-dev-asst-client"
   imageTag: "$(Build.BuildId)"
 
