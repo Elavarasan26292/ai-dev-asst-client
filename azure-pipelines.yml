@@ -99,11 +99,6 @@ steps:
           --set controller.ingressClass=nginx \
           --wait
 
-        kubectl annotate service ingress-nginx-controller \
-          --namespace ingress-nginx \
-          service.beta.kubernetes.io/azure-dns-label-name=ai-dev-asst-client \
-          --overwrite
-
         helm upgrade --install cert-manager jetstack/cert-manager \
           --namespace cert-manager \
           --create-namespace \
