@@ -3,10 +3,8 @@ kind: Service
 metadata:
   name: ai-dev-asst-client
   namespace: default
-  annotations:
-    service.beta.kubernetes.io/azure-dns-label-name: ai-dev-asst-client
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: ai-dev-asst-client
   ports:

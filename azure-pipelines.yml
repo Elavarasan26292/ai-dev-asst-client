@@ -9,7 +9,8 @@ variables:
   azureSubscriptionServiceConnection: "devasst-aks-connection"
   azureResourceGroup: "VisualStudioOnline-C40A3787E31A48EEBA3DE3DDB8EF0511"
   kubernetesCluster: "devasst-aks"
-  apiBaseUrl: "http://ai-dev-asst-api.southindia.cloudapp.azure.com/api"
+  apiBaseUrl: "https://ai-dev-asst-client.southindia.cloudapp.azure.com/api"
+  letsEncryptEmail: "REPLACE_WITH_LETSENCRYPT_EMAIL"
   imageRepository: "ai-dev-asst-client"
   imageTag: "$(Build.BuildId)"
 
@@ -53,14 +54,61 @@ steps:
 
   - bash: |
       set -euo pipefail
+      if [[ "$(letsEncryptEmail)" == *REPLACE_WITH_* ]]; then
+        echo "Set letsEncryptEmail before deployment."
+        exit 1
+      fi
+
       export IMAGE_TAG="$(imageTag)"
+      export LETS_ENCRYPT_EMAIL="$(letsEncryptEmail)"
       mkdir -p "$(Build.ArtifactStagingDirectory)/k8s"
       envsubst '${IMAGE_TAG}' \
         < "$(Build.SourcesDirectory)/k8s/deployment.yaml" \
         > "$(Build.ArtifactStagingDirectory)/k8s/deployment.yaml"
       cp "$(Build.SourcesDirectory)/k8s/service.yaml" \
         "$(Build.ArtifactStagingDirectory)/k8s/service.yaml"
+      envsubst '${LETS_ENCRYPT_EMAIL}' \
+        < "$(Build.SourcesDirectory)/k8s/cluster-issuer.yaml" \
+        > "$(Build.ArtifactStagingDirectory)/k8s/cluster-issuer.yaml"
+      cp "$(Build.SourcesDirectory)/k8s/ingress.yaml" \
+        "$(Build.ArtifactStagingDirectory)/k8s/ingress.yaml"
     displayName: Render Kubernetes manifests
+
+  - task: AzureCLI@2
+    displayName: Install HTTPS ingress prerequisites
+    inputs:
+      azureSubscription: $(azureSubscriptionServiceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        set -euo pipefail
+
+        az aks get-credentials \
+          --resource-group "$(azureResourceGroup)" \
+          --name "$(kubernetesCluster)" \
+          --overwrite-existing
+
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo add jetstack https://charts.jetstack.io
+        helm repo update
+
+        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+          --namespace ingress-nginx \
+          --create-namespace \
+          --set controller.ingressClassResource.name=nginx \
+          --set controller.ingressClass=nginx \
+          --wait
+
+        kubectl annotate service ingress-nginx-controller \
+          --namespace ingress-nginx \
+          service.beta.kubernetes.io/azure-dns-label-name=ai-dev-asst-client \
+          --overwrite
+
+        helm upgrade --install cert-manager jetstack/cert-manager \
+          --namespace cert-manager \
+          --create-namespace \
+          --set crds.enabled=true \
+          --wait
 
   - task: KubernetesManifest@1
     displayName: Deploy client to AKS
@@ -72,7 +120,9 @@ steps:
       kubernetesCluster: $(kubernetesCluster)
       namespace: default
       manifests: |
+        $(Build.ArtifactStagingDirectory)/k8s/cluster-issuer.yaml
         $(Build.ArtifactStagingDirectory)/k8s/deployment.yaml
         $(Build.ArtifactStagingDirectory)/k8s/service.yaml
+        $(Build.ArtifactStagingDirectory)/k8s/ingress.yaml
       containers: |
         devasst.azurecr.io/$(imageRepository):$(imageTag)
