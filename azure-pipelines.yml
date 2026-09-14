@@ -29,14 +29,24 @@ steps:
     displayName: Build and type-check client
 
   - task: Docker@2
-    displayName: Build and push client image
+    displayName: Build client image
     inputs:
-      command: buildAndPush
+      command: build
       containerRegistry: $(dockerRegistryServiceConnection)
       repository: $(imageRepository)
       Dockerfile: "$(Build.SourcesDirectory)/Dockerfile"
       buildContext: "$(Build.SourcesDirectory)"
-      arguments: '--build-arg VITE_API_BASE_URL="$(apiBaseUrl)"'
+      arguments: "--build-arg VITE_API_BASE_URL=$(apiBaseUrl)"
+      tags: |
+        $(imageTag)
+        latest
+
+  - task: Docker@2
+    displayName: Push client image
+    inputs:
+      command: push
+      containerRegistry: $(dockerRegistryServiceConnection)
+      repository: $(imageRepository)
       tags: |
         $(imageTag)
         latest
