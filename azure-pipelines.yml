@@ -97,6 +97,9 @@ steps:
           --create-namespace \
           --set controller.ingressClassResource.name=nginx \
           --set controller.ingressClass=nginx \
+          --set controller.service.enableHttp=true \
+          --set controller.service.ports.http=80 \
+          --set controller.service.targetPorts.http=http \
           --wait
 
         helm upgrade --install cert-manager jetstack/cert-manager \
