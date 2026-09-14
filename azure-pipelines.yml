@@ -22,8 +22,11 @@ steps:
   - script: npm ci
     displayName: Install client dependencies
 
+  - script: npm run lint
+    displayName: Run client lint checks
+
   - script: npm run build
-    displayName: Validate client build
+    displayName: Build and type-check client
 
   - task: Docker@2
     displayName: Build and push client image

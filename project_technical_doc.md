@@ -47,6 +47,8 @@ The client can be deployed independently to AKS through the manual `azure-pipeli
 
 The pipeline installs Node.js 22, validates the production build, builds an NGINX container, pushes it to `devasst.azurecr.io/ai-dev-asst-client`, and deploys it as a Kubernetes `LoadBalancer` service.
 
+The pipeline runs `npm ci`, `npm run lint`, and `npm run build` before building the Docker image. The project currently has no separate automated test script; linting and the TypeScript/Vite production build are the available validation gates.
+
 The production API URL is supplied at build time through `VITE_API_BASE_URL`. The current production value is `http://ai-dev-asst-api.southindia.cloudapp.azure.com/api`. Local development falls back to `http://localhost:5259/api` when the variable is not set.
 
 The client service uses the Azure DNS label `ai-dev-asst-client`, producing the expected public hostname `http://ai-dev-asst-client.southindia.cloudapp.azure.com` when the label is available in the South India region. The API CORS configuration must allow this origin.
